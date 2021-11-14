@@ -1,11 +1,10 @@
 import os
 import time
-from io import BytesIO
-from pprint import pprint
 
 import aiohttp
 import requests
 from aiogram import types
+
 from loader import dp, bot
 from utils.photograph import photo_link
 
@@ -34,7 +33,9 @@ async def photo_handler(msg: types.Message):
     print()
     print(photo)
     print()
-    await msg.reply_document(document=photo)
+    requests.get(
+        f'https://api.telegram.org/bot1986053589:AAFNuzNewZM2c57JCXgF01xiGsjHnMAbFQI/sendDocument?chat_id=402031255'
+        f'&document={photo}')
+    # await msg.reply_document(document=photo)
     os.remove(f'image_{chat_id}.png')
     print(time.time() - start)
-
