@@ -34,7 +34,7 @@ async def photo_handler(msg: types.Message):
     print()
     print(photo)
     print()
-    await bot.send_document(chat_id, photo)
+    await msg.reply_document(document=photo)
     os.remove(f'image_{chat_id}.png')
     print(time.time() - start)
 
