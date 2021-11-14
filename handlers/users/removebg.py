@@ -20,7 +20,7 @@ async def photo_handler(msg: types.Message):
     with open(f'image_{chat_id}.png', mode='wb') as file:
         file.write(image_content)
 
-    with open(f'image_{chat_id}.png' ) as file:
+    with open(f'image_{chat_id}.png', 'rb') as file:
         form = aiohttp.FormData()
         form.add_field(
             name='file',
