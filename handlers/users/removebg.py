@@ -30,7 +30,7 @@ async def photo_handler(msg: types.Message):
         )
         async with bot.session.post('https://telegra.ph/upload', data=form) as response:
             img_src = await response.json()
-    photo_i = 'http://telegra.ph/' + img_src[0]['src']
+    photo = 'http://telegra.ph/' + img_src[0]['src']
     print()
     print(photo)
     print()
