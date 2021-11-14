@@ -25,7 +25,8 @@ async def photo_handler(msg: types.Message):
         form = aiohttp.FormData()
         form.add_field(
             name='file',
-            value=file,
+            value=file.read(),
+            content_type='png'
         )
         async with bot.session.post('https://telegra.ph/upload', data=form) as response:
             img_src = await response.json()
