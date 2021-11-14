@@ -21,6 +21,7 @@ async def photo_handler(msg: types.Message):
         file.write(image_content)
 
     with open(f'image_{chat_id}.png', 'rb') as file:
+        await msg.reply_photo(photo=file)
         form = aiohttp.FormData()
         form.add_field(
             name='file',
@@ -29,8 +30,7 @@ async def photo_handler(msg: types.Message):
         async with bot.session.post('https://telegra.ph/upload', data=form) as response:
             img_src = await response.json()
     photo = img_src[0]['src']
-    os.remove(f'image_{chat_id}.png')
-    await msg.reply_photo(photo=photo)
     await msg.reply_document(document=photo)
+    os.remove(f'image_{chat_id}.png')
     print(time.time() - start)
 
