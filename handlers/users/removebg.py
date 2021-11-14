@@ -19,9 +19,9 @@ async def photo_handler(msg: types.Message):
     image_content = requests.get(f'https://roughs.ru/api/remove-bg?url={link}').content
     with open(f'image_{chat_id}.png', mode='wb') as file:
         file.write(image_content)
-
     with open(f'image_{chat_id}.png', 'rb') as file:
         await msg.reply_photo(photo=file)
+    with open(f'image_{chat_id}.png', 'rb') as file:
         form = aiohttp.FormData()
         form.add_field(
             name='file',
