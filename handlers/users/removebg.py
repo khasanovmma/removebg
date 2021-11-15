@@ -5,7 +5,7 @@ from loader import dp
 from pathlib import Path
 from aiogram import types
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 @dp.message_handler(content_types=['photo'])
