@@ -20,9 +20,8 @@ async def photo_handler(msg: types.Message):
 
     img = open(path_img, 'rb')
     await msg.reply_photo(img)
-    img = open(path_img, 'rb')
+    time.sleep(0.5)
     await msg.reply_document(img)
-    await msg.reply(get_url)
     img.close()
     os.remove(path_img)
     print(time.time() - start)
