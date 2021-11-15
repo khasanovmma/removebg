@@ -1,25 +1,28 @@
 import os
 import time
-from pprint import pprint
-
-import aiohttp
 import requests
+from loader import dp
+from pathlib import Path
 from aiogram import types
 
-from loader import dp, bot
-from utils.photograph import photo_link
+BASE_DIR = Path(__file__).resolve().parent
 
 
-@dp.message_handler(content_types='photo')
+@dp.message_handler(content_types=['photo'])
 async def photo_handler(msg: types.Message):
     start = time.time()
-    pprint(msg.as_json())
-    photo = msg.photo[-1]
-    link = await photo_link(photo)
-    with open('image.png', mode='wb') as file:
-        response = requests.get(f'https://roughs.ru/api/remove-bg?url={link}').content
+    get_url = await msg.photo[-1].get_url()
+    with open(f'remove_img_{msg.from_user.id}.png', mode='wb') as file:
+        response = requests.get(f'https://roughs.ru/api/remove-bg?url={get_url}').content
         file.write(response)
-    with open('image.png', mode='rb') as file:
-        
-    await msg.reply_document(f'https://roughs.ru/api/remove-bg?url={link}')
+
+    path_img = os.path.join(BASE_DIR, f'remove_img_{msg.from_user.id}.png')
+
+    img = open(path_img, 'rb')
+    await msg.reply_photo(img)
+    img = open(path_img, 'rb')
+    await msg.reply_document(img)
+    await msg.reply(get_url)
+    img.close()
+    os.remove(path_img)
     print(time.time() - start)
